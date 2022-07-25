@@ -1,5 +1,5 @@
 # PsSysPassAPI
-Powershell wrapper for the sysPass ReST API
+Powershell wrapper for the [sysPass ReST API](https://syspass-doc.readthedocs.io/en/3.1/application/api.html)
 
 ## Installation
 

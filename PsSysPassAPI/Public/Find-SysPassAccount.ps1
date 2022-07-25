@@ -1,3 +1,20 @@
+<#
+.SYNOPSIS
+    Search for SysPass Accounts
+.DESCRIPTION
+    Search for SysPass Accounts
+.NOTES
+
+.EXAMPLE
+    Find-SysPassAccount -Text "use"
+
+    User1
+    User2
+    User3
+    PurpleUser
+    Fuse
+    ...
+#>
 function Find-SysPassAccount {
     [CmdletBinding()]
     param (
@@ -29,7 +46,7 @@ function Find-SysPassAccount {
     }
 
     process {
-
+        accountsearch -text $Text
     }
 
     end {

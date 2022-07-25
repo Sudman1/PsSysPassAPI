@@ -12,5 +12,7 @@ Import-Module -Name (Join-Path -Path $outputModVerDir -ChildPath "$($env:BHProje
 
 
 Describe "Functionality Tests" {
+    It "Finding test account details succeeds" {
 
+    }
 }
