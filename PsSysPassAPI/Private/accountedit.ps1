@@ -1,23 +1,75 @@
 ﻿<#
 .SYNOPSIS
-    Create tag
+    Edit account
 .DESCRIPTION
-    Create tag
+    Edit account
 .NOTES
     Private function
 .EXAMPLE
 
 #>
-function tagcreate {
+function accountedit {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
         [Parameter(ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
-        # Tag's name
+        # API token's pass
+        [Parameter(ParameterSetName="ExplicitAuth")]
+        [string] $tokenPass,
+
+        # Account's Id
         [Parameter(Mandatory)]
-        [string] $name
+        [int] $id,
+
+        # Account's name
+        [Parameter()]
+        [string] $name,
+
+        # Account's category Id
+        [Parameter()]
+        [int] $categoryId,
+
+        # Account's client Id
+        [Parameter()]
+        [int] $clientId,
+
+        # Account's tags Id
+        [Parameter()]
+        [array] $tagsId,
+
+        # Account's user group Id
+        [Parameter()]
+        [int] $userGroupId,
+
+        # Account's parent Id
+        [Parameter()]
+        [int] $parentId,
+
+        # Account's login
+        [Parameter()]
+        [string] $login,
+
+        # Account's access URL or IP
+        [Parameter()]
+        [string] $url,
+
+        # Account's notes
+        [Parameter()]
+        [string] $notes,
+
+        # Set account as private. It can be either 0 or 1
+        [Parameter()]
+        [int] $private,
+
+        # Set account as private for group. It can be either 0 or 1
+        [Parameter()]
+        [int] $privateGroup,
+
+        # Expire date in UNIX timestamp format
+        [Parameter()]
+        [int] $expireDate
     )
 
     begin {
@@ -38,7 +90,7 @@ function tagcreate {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }
 
-        $payload = New-JsonRpcPayload -method "tag/create" -params $PSBoundParameters
+        $payload = New-JsonRpcPayload -method "account/edit" -params $PSBoundParameters
 
         Write-Debug "Payload:`n$payload"
 

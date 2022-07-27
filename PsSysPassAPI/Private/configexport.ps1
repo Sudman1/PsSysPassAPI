@@ -1,23 +1,27 @@
 ﻿<#
 .SYNOPSIS
-    Create tag
+    Export application data in XML format
 .DESCRIPTION
-    Create tag
+    Export application data in XML format
 .NOTES
     Private function
 .EXAMPLE
 
 #>
-function tagcreate {
+function configexport {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
         [Parameter(ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
-        # Tag's name
-        [Parameter(Mandatory)]
-        [string] $name
+        # Server path to store the XML file
+        [Parameter()]
+        [string] $path,
+
+        # Password used to encrypt the exported data
+        [Parameter()]
+        [string] $password
     )
 
     begin {
@@ -38,7 +42,7 @@ function tagcreate {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }
 
-        $payload = New-JsonRpcPayload -method "tag/create" -params $PSBoundParameters
+        $payload = New-JsonRpcPayload -method "config/export" -params $PSBoundParameters
 
         Write-Debug "Payload:`n$payload"
 

@@ -21,11 +21,11 @@ function Find-SysPassAccount {
         # Credential object containing the API token and token password to use for this request. If not specified, this cmdlet will look for the value set by Connect-SysPass.
         [pscredential] $AuthToken,
 
-        # The Text to search for. If null or empty, then all accounts will be returned
-        [string] $Text,
+        # The regex text to search for. If null or empty, then all accounts will be returned
+        [string] $Regex = ".*",
 
         # The number of results to display
-        [int] $Count,
+        [int] $Count = [int]::MaxValue,
 
         # Category name to filter on.
         [string] $Category,
@@ -46,7 +46,27 @@ function Find-SysPassAccount {
     }
 
     process {
-        accountsearch -text $Text
+        $params = @{}
+
+        if ($PSBoundParameters.ContainsKey("AuthToken")) {
+            $params["authToken"] = $AuthToken.UserName
+        }
+
+        if ($PSBoundParameters.ContainsKey("Category")) {
+            $params["categoryId"] = (categorysearch -Text "^$Category`$").id
+        }
+
+        if ($PSBoundParameters.ContainsKey("Client")) {
+            $params["clientId"] = (clientsearch -Text "^$Client`$").id
+        }
+
+        if ($PSBoundParameters.ContainsKey("Tag")) {
+            $params["tagsId"] = foreach ($id in $Tag) {
+                (tagsearch -Text "^$Tag`$").id
+            }
+        }
+
+        accountsearch @params | Where-Object {$_.name -match $Regex} | Select-Object -First $Count -Property Id, Name, login, url, notes, CategoryName, ClientName
     }
 
     end {

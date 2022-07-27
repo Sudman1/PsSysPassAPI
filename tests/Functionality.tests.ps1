@@ -12,7 +12,22 @@ Import-Module -Name (Join-Path -Path $outputModVerDir -ChildPath "$($env:BHProje
 
 
 Describe "Functionality Tests" {
-    It "Finding test account details succeeds" {
+    It "Stores connection information." {
+        Connect-SysPass -URI "http://10.187.110.104/syspass" -Token ([pscredential]::new("9cb6ce43a4bafcbd7c80bd2ae88ba7b2eaa745f4ee34c9adbdc3a0edf1015724", (ConvertTo-SecureString -Force -AsPlainText "123456")))
+        $global:__SysPassGlobal.uri | Should -Be "http://10.187.110.104/syspass"
+        $global:__SysPassGlobal.token.username | Should -Be "9cb6ce43a4bafcbd7c80bd2ae88ba7b2eaa745f4ee34c9adbdc3a0edf1015724"
+        $global:__SysPassGlobal.token.GetNetworkCredential().Password | Should -Be "123456"
+    }
 
+    It "Finding test account details succeeds" {
+        $account = Find-SysPassAccount -Regex '^test$' -Category "Test"
+        $account.name | Should -Be "Test"
+        $account.login | Should -Be "Test"
+        $account.categoryName | Should -Be "Test"
+    }
+
+    It "Finding test category information succeeds" {
+        $category = Find-SysPassCategory -Regex '^test$'
+        $category.name | Should -Be "Test"
     }
 }

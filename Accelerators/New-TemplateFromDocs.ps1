@@ -4,20 +4,15 @@
 
 $content = (Invoke-WebRequest https://raw.githubusercontent.com/sysPass/sysPass-doc/3.1/docs/source/application/api.rst).Content
 
-$lines = $content -split "`r*`n"
-
-$endpointIndicators = $lines | Where-Object {$_ -match "^:"}
-
-
-$blocks = [regex]::Matches($content,"\n(\w+/\w+)\n:+\n\n(.*?\n).*?=\n(.*?)\n?=\n\n","Singleline")
+$blocks = [regex]::Matches($content, "(\w+/\w+\n):+\n\n(.*?\n).*?=\n(.*?)[= ]+\n(.*?)\n=", "SingleLine")
 $blocks -join "`n`n------------------------------------------------------------------------------------------`n`n"
 
 $defs = @{}
-$blocks | foreach {
-    $endpoint = $_.groups[1].value
+$blocks | ForEach-Object {
+    $endpoint = $_.groups[1].value.trim()
     $defs[$endpoint] = @{
         description = $_.groups[2].value.trim()
-        params = ($_.groups[3].value -replace "=+\s+=+\s+\=+\s+\=+(\n)*","" -replace "  +", "`t") | ConvertFrom-Csv -Delimiter "`t"
+        params      = $_.groups[4].value.trim() -replace "  +", "`t" | ConvertFrom-Csv -Delimiter "`t" -Header ($_.groups[3].value.trim() -split "  +")
     }
 }
 
@@ -39,7 +34,7 @@ $functionTemplate = @'
 
 #>
 function {1} {{
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
 {2}
     )
@@ -49,15 +44,31 @@ function {1} {{
     }}
 
     process {{
-        if (-not $authToken) {{
+
+        $commonParameters = "Debug,WarningAction,ErrorVariable,InformationVariable,OutBuffer,Verbose,ErrorAction,InformationAction,WarningVariable,OutVariable,PipelineVariable" -split ","
+
+        foreach ($commonParameter in $commonParameters) {{
+            if ($PSBoundParameters.ContainsKey($commonParameter)) {{
+                $PSBoundParameters.Remove($commonParameter)
+            }}
+        }}
+
+        if ($PSCmdlet.ParameterSetName -eq "ImplicitAuth") {{
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }}
 
         $payload = New-JsonRpcPayload -method "{3}" -params $PSBoundParameters
 
+        Write-Debug "Payload:`n$payload"
+
         $response = Invoke-RestMethod -URI "$($global:__SysPassGlobal.uri)/api.php" -Body $payload -Method POST -ContentType "application/json"
+
+        Write-Debug "Response:`n$($response | ConvertTo-Json)"
+
         if ($response.result.resultCode -eq 0) {{
-            $response.result.result | Select-Object ...
+            $response.result.result
+        }} else {{
+            $response.error
         }}
     }}
 
@@ -69,13 +80,15 @@ function {1} {{
 '@
 
 foreach ($endpoint in $defs.keys) {
-    $params = ($defs[$endpoint].params | foreach {
-        if ($_.required -eq "yes" -and $_.parameter -notlike "auth*") {
-            $mandatory = "Mandatory"
+    $params = ($defs[$endpoint].params | ForEach-Object {
+        if ($_.required -eq "yes" -and $_.parameter -notlike "*token*") {
+            $paramArgs = "Mandatory"
+        } elseif ($_.parameter -like "*token*") {
+            $paramArgs = 'ParameterSetName="ExplicitAuth"'
         } else {
-            $mandatory = ""
+            $paramArgs = ""
         }
-        $parameterTemplate -f $_.description, $mandatory, $_.parameter, $_.type
+        $parameterTemplate -f $_.description, $paramArgs, $_.parameter, $_.type
     }) -join ",`n`n"
 
     $functionName = $endpoint.replace("/","")

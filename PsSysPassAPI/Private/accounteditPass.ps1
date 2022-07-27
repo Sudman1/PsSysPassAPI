@@ -1,23 +1,35 @@
 ﻿<#
 .SYNOPSIS
-    Create tag
+    Edit account's password
 .DESCRIPTION
-    Create tag
+    Edit account's password
 .NOTES
     Private function
 .EXAMPLE
 
 #>
-function tagcreate {
+function accounteditPass {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
         [Parameter(ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
-        # Tag's name
+        # API token's pass
+        [Parameter(ParameterSetName="ExplicitAuth")]
+        [string] $tokenPass,
+
+        # Account's Id
         [Parameter(Mandatory)]
-        [string] $name
+        [int] $id,
+
+        # Account's password
+        [Parameter(Mandatory)]
+        [string] $pass,
+
+        # Expire date in UNIX timestamp format
+        [Parameter()]
+        [int] $expireDate
     )
 
     begin {
@@ -38,7 +50,7 @@ function tagcreate {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }
 
-        $payload = New-JsonRpcPayload -method "tag/create" -params $PSBoundParameters
+        $payload = New-JsonRpcPayload -method "account/editPass" -params $PSBoundParameters
 
         Write-Debug "Payload:`n$payload"
 

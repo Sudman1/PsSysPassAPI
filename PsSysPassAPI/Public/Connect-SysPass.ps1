@@ -8,6 +8,8 @@
     NONE
 .EXAMPLE
     Connect-SysPass -URI "https://10.0.0.105:8443/syspass" -Token (Get-Credential "aaaabbbbccccddddeeeeffff")
+
+    Sets the $global:__SysPassGlobal variable with connection info for accessing the SysPass server
 #>
 function Connect-SysPass {
     [CmdletBinding()]

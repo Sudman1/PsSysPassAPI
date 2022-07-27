@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Find-SysPassAccount
+# Find-SysPassCategory
 
 ## SYNOPSIS
 Search for SysPass Accounts
@@ -13,8 +13,7 @@ Search for SysPass Accounts
 ## SYNTAX
 
 ```
-Find-SysPassAccount [[-AuthToken] <PSCredential>] [[-Regex] <String>] [[-Count] <Int32>] [[-Category] <String>]
- [[-Client] <String>] [[-Tag] <String[]>] [[-Operator] <Object>] [<CommonParameters>]
+Find-SysPassCategory [[-AuthToken] <PSCredential>] [[-Regex] <String>] [[-Count] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,7 +52,8 @@ Accept wildcard characters: False
 ```
 
 ### -Regex
-The regex text to search for. If null or empty, then all accounts will be returned
+The regex text to search for.
+If null or empty, then all accounts will be returned
 
 ```yaml
 Type: String
@@ -62,7 +62,7 @@ Aliases:
 
 Required: False
 Position: 2
-Default value: None
+Default value: .*
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -77,68 +77,7 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Category
-Category name to filter on.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Client
-Client name to filter on
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Tag
-Tag names to filter on
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 6
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Operator
-Operator for filtering.
-Defaults to 'or'
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 7
-Default value: Or
+Default value: 2147483647
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

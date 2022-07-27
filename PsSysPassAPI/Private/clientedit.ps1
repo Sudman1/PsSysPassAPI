@@ -1,23 +1,35 @@
 ﻿<#
 .SYNOPSIS
-    Create tag
+    Edit client
 .DESCRIPTION
-    Create tag
+    Edit client
 .NOTES
     Private function
 .EXAMPLE
 
 #>
-function tagcreate {
+function clientedit {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
         [Parameter(ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
-        # Tag's name
+        # Client's Id
         [Parameter(Mandatory)]
-        [string] $name
+        [int] $id,
+
+        # Client's name
+        [Parameter(Mandatory)]
+        [string] $name,
+
+        # Client's description
+        [Parameter()]
+        [string] $description,
+
+        # Set client as global. It can be either 0 or 1
+        [Parameter()]
+        [int] $global
     )
 
     begin {
@@ -38,7 +50,7 @@ function tagcreate {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }
 
-        $payload = New-JsonRpcPayload -method "tag/create" -params $PSBoundParameters
+        $payload = New-JsonRpcPayload -method "client/edit" -params $PSBoundParameters
 
         Write-Debug "Payload:`n$payload"
 

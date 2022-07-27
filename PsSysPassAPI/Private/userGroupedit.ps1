@@ -1,23 +1,35 @@
 ﻿<#
 .SYNOPSIS
-    Create tag
+    Edit user group
 .DESCRIPTION
-    Create tag
+    Edit user group
 .NOTES
     Private function
 .EXAMPLE
 
 #>
-function tagcreate {
+function userGroupedit {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
         [Parameter(ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
-        # Tag's name
+        # User group's Id
         [Parameter(Mandatory)]
-        [string] $name
+        [int] $id,
+
+        # User group's name
+        [Parameter(Mandatory)]
+        [string] $name,
+
+        # User group's description
+        [Parameter()]
+        [string] $description,
+
+        # User group's users Id
+        [Parameter()]
+        [array] $usersId
     )
 
     begin {
@@ -38,7 +50,7 @@ function tagcreate {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
         }
 
-        $payload = New-JsonRpcPayload -method "tag/create" -params $PSBoundParameters
+        $payload = New-JsonRpcPayload -method "userGroup/edit" -params $PSBoundParameters
 
         Write-Debug "Payload:`n$payload"
 
