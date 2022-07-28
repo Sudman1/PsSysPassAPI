@@ -14,29 +14,29 @@ Install from the PowerShell Gallery
 
 | Endpoint         | Cmdlet                      | Status |
 |:-----------------|:----------------------------|:------:|
-| account/search   | `Find-SysPassAccount`         |   |
+| account/search   | `Find-SysPassAccount`         | ✅ |
 | account/view     | `Get-SysPassAccount`          |   |
-| account/viewPass | `Get-SysPassAccountPassword`  |   |
+| account/viewPass | `Get-SysPassAccountPassword`  | ✅ |
 | account/editPass | `Set-SysPassAccountPassword`  |   |
 | account/create   | `New-SysPassAccount`          |   |
 | account/edit     | `Set-SysPassAccount`          |   |
 | account/delete   | `Remove-SysPassAccount`       |   |
-| category/search  | `Find-SysPassCategory`        |   |
+| category/search  | `Find-SysPassCategory`        | ✅ |
 | category/view    | `Get-SysPassCategory`         |   |
 | category/create  | `New-SysPassCategory`         |   |
 | category/edit    | `Set-SysPassCategory`         |   |
 | category/delete  | `Remove-SysPassCategory`      |   |
-| client/search    | `Find-SysPassClient`          |   |
+| client/search    | `Find-SysPassClient`          | ✅ |
 | client/view      | `Get-SysPassClient`           |   |
 | client/create    | `New-SysPassClient`           |   |
 | client/edit      | `Set-SysPassClient`           |   |
 | client/delete    | `Remove-SysPassClient`        |   |
-| tag/search       | `Find-SysPassTag`             |   |
+| tag/search       | `Find-SysPassTag`             | ✅ |
 | tag/view         | `Get-SysPassTag`              |   |
 | tag/create       | `New-SysPassTag`              |   |
 | tag/edit         | `Set-SysPassTag`              |   |
 | tag/delete       | `Remove-SysPassTag`           |   |
-| userGroup/search | `Find-SysPassUserGroup`       |   |
+| userGroup/search | `Find-SysPassUserGroup`       | ✅ |
 | userGroup/view   | `Get-SysPassUserGroup`        |   |
 | userGroup/create | `New-SysPassUserGroup`        |   |
 | userGroup/edit   | `Set-SysPassUserGroup`        |   |
