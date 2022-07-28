@@ -12,11 +12,11 @@ function accountviewPass {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
         # API token's pass
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $tokenPass,
 
         # Account's Id
@@ -44,6 +44,7 @@ function accountviewPass {
 
         if ($PSCmdlet.ParameterSetName -eq "ImplicitAuth") {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
+            $PSBoundParameters["tokenPass"] = $global:__SysPassGlobal.Token.GetNetworkCredential().Password
         }
 
         $payload = New-JsonRpcPayload -method "account/viewPass" -params $PSBoundParameters

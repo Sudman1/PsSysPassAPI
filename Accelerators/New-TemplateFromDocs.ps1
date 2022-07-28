@@ -84,7 +84,7 @@ foreach ($endpoint in $defs.keys) {
         if ($_.required -eq "yes" -and $_.parameter -notlike "*token*") {
             $paramArgs = "Mandatory"
         } elseif ($_.parameter -like "*token*") {
-            $paramArgs = 'ParameterSetName="ExplicitAuth"'
+            $paramArgs = 'Mandatory, ParameterSetName="ExplicitAuth"'
         } else {
             $paramArgs = ""
         }

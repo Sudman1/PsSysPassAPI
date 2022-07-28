@@ -12,7 +12,7 @@ function userGroupcreate {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
         # User group's name

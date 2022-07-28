@@ -6,14 +6,15 @@
 .NOTES
 
 .EXAMPLE
-    Find-SysPassAccount -Text "use"
+    Find-SysPassAccount -Regex '^user1$'
 
-    User1
-    User2
-    User3
-    PurpleUser
-    Fuse
-    ...
+    id           : 1
+    name         : User 1
+    login        : user1
+    url          :
+    notes        : Non-privileged account
+    categoryName : Domain User
+    clientName   : Client
 #>
 function Find-SysPassAccount {
     [CmdletBinding()]

@@ -1,19 +1,24 @@
 <#
 .SYNOPSIS
-    Search for SysPass Accounts
+    Search for SysPass Clients
 .DESCRIPTION
-    Search for SysPass Accounts
+    Search for SysPass Clients
 .NOTES
 
 .EXAMPLE
-    Find-SysPassAccount -Text "use"
+    Find-SysPassCient
 
-    User1
-    User2
-    User3
-    PurpleUser
-    Fuse
-    ...
+    id name   description  hash isGlobal
+    -- ----   -----------  ---- --------
+    1 Client                          0
+    2 CSSD   Service Desk             0
+.EXAMPLE
+    Find-SysPassCient -Regex "^C.*"
+
+    id name   description  hash isGlobal
+    -- ----   -----------  ---- --------
+    1 Client                          0
+    2 CSSD   Service Desk             0
 #>
 function Find-SysPassClient {
     [CmdletBinding()]

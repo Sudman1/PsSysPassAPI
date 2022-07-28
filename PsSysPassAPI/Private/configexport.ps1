@@ -12,7 +12,7 @@ function configexport {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
         # Server path to store the XML file

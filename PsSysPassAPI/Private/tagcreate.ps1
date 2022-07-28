@@ -12,7 +12,7 @@ function tagcreate {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
         # Tag's name

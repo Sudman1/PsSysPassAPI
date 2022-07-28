@@ -1,19 +1,23 @@
 <#
 .SYNOPSIS
-    Search for SysPass Accounts
+    Search for SysPass User Groups
 .DESCRIPTION
-    Search for SysPass Accounts
+    Search for SysPass User Groups
 .NOTES
 
 .EXAMPLE
-    Find-SysPassAccount -Text "use"
+    Find-SysPassUserGroup
 
-    User1
-    User2
-    User3
-    PurpleUser
-    Fuse
-    ...
+    id name   description    users
+    -- ----   -----------    -----
+    1 Admins sysPass Admins
+    2 CSSD
+.EXAMPLE
+    Find-SysPassUserGroup -Regex "CSSD"
+
+    id name   description    users
+    -- ----   -----------    -----
+    2 CSSD
 #>
 function Find-SysPassUserGroup {
     [CmdletBinding()]

@@ -12,11 +12,11 @@ function clientview {
     [CmdletBinding(DefaultParameterSetName="ImplicitAuth")]
     param (
         # User's API token
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $authToken,
 
         # API token's pass
-        [Parameter(ParameterSetName="ExplicitAuth")]
+        [Parameter(Mandatory, ParameterSetName="ExplicitAuth")]
         [string] $tokenPass,
 
         # Client's Id

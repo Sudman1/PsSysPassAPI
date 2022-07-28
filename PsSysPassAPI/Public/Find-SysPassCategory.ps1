@@ -1,18 +1,20 @@
 <#
 .SYNOPSIS
-    Search for SysPass Accounts
+    Search for SysPass Categories
 .DESCRIPTION
-    Search for SysPass Accounts
+    Search for SysPass Categories
 .NOTES
 
 .EXAMPLE
-    Find-SysPassAccount -Text "use"
+    Find-SysPassCategory -Regex "c.*t"
 
-    User1
-    User2
-    User3
-    PurpleUser
-    Fuse
+    id name           description
+    -- ----           -----------
+    10 Action         Action Passwords
+     2 Carrot         Orange things
+    30 Cat            Animals
+    15 Court
+     1 Zero Count     Category with no results
     ...
 #>
 function Find-SysPassCategory {

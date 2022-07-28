@@ -1,19 +1,24 @@
 <#
 .SYNOPSIS
-    Search for SysPass Accounts
+    Search for SysPass Tags
 .DESCRIPTION
-    Search for SysPass Accounts
+    Search for SysPass Tags
 .NOTES
 
 .EXAMPLE
-    Find-SysPassAccount -Text "use"
+    Find-SysPassTag
 
-    User1
-    User2
-    User3
-    PurpleUser
-    Fuse
-    ...
+    id name
+    -- ----
+    1 Active Directory
+    3 Automation
+    2 Events
+.EXAMPLE
+    Find-SysPassTag -Regex "^auto"
+
+    id name
+    -- ----
+    3 Automation
 #>
 function Find-SysPassTag {
     [CmdletBinding()]
