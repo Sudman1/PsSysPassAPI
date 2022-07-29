@@ -43,3 +43,6 @@ Install from the PowerShell Gallery
 | userGroup/delete | `Remove-SysPassUserGroup`     |   |
 | config/backup    | `Backup-SysPassConfig`        |   |
 | config/export    | `Export-SysPassConfig`        |   |
+
+- ✅ = Covered by cmdlet directly using the specified ReST endpoint
+- 🆗 = Functionality is covered by a commandlet using a separate ReST endpoint
