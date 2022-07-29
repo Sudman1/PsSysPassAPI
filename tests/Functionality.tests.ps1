@@ -30,4 +30,26 @@ Describe "Functionality Tests" {
         $category = Find-SysPassCategory -Regex '^test$'
         $category.name | Should -Be "Test"
     }
+
+    It "Finding test client information succeeds" {
+        $client = Find-SysPassClient -Regex '^test$'
+        $client.name | Should -Be "Test"
+    }
+
+
+    It "Finding test tag information succeeds" {
+        $tag = Find-SysPassTag -Regex '^test$'
+        $tag.name | Should -Be "Test"
+    }
+
+    It "Finding test user group information succeeds" {
+        $ug = Find-SysPassUserGroup -Regex '^test$'
+        $ug.name | Should -Be "Test"
+    }
+
+
+    It "Pulling test account password succeeds" {
+        $pass = Get-SysPassAccountPassword -Regex '^test$'
+        $pass.name | Should -Be "123456789"
+    }
 }

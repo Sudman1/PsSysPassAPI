@@ -12,10 +12,16 @@
 RootModule = 'PsSysPassAPI.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.1.0'
 
 # Supported PSEditions
-# CompatiblePSEditions = @()
+CompatiblePSEditions = @(
+    "PSEdition_Desktop"
+    "PSEdition_Core"
+    "windows"
+    "Linux"
+    "MacOS"
+)
 
 # ID used to uniquely identify this module
 GUID = 'ae43526b-2852-4349-a76f-d2aea00088e9'
@@ -24,7 +30,7 @@ GUID = 'ae43526b-2852-4349-a76f-d2aea00088e9'
 Author = 'James Sudbury'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'susdtyle.com'
 
 # Copyright statement for this module
 Copyright = '(c) 2022 James Sudbury. All rights reserved.'
@@ -33,7 +39,7 @@ Copyright = '(c) 2022 James Sudbury. All rights reserved.'
 Description = 'Powershell wrapper for the sysPass ReST API'
 
 # Minimum version of the Windows PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '3.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -95,19 +101,19 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @("Automation", "REST", "Security", "sysPass", "PasswordManagement")
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/Sudman1/PsSysPassAPI/blob/main/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/Sudman1/PsSysPassAPI'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'https://github.com/Sudman1/PsSysPassAPI/blob/main/CHANGELOG.md'
 
     } # End of PSData hashtable
 

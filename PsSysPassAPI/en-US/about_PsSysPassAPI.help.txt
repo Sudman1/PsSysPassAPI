@@ -2,15 +2,17 @@ TOPIC
     PsSysPassAPI
 
 SHORT DESCRIPTION
-    You should considering providing an introduction and overview of your
-    module here.
+    The PsSysPassAPI module provides a wrapper for the sysPass ReSt API.
 
 LONG DESCRIPTION
-    Discuss what the "primary" commands are in your module especially if
-    there are many commands.  Discuss how to get started using this module
-    providing examples where appropriate.
+    Using this module is fairly straightforward:
 
-YOUR HEADER HERE
-    About topics in PowerShell are free-form text.  Add headers to your
-    about topic as necessary.
+    - Use the Connect-SysPass cmdlet to provide connection and credential
+    information to the session
+    - Use Find-SysPassAccount ti find details of the account(s) you are trying
+    to get the password(s) for.
+    - Use Get-SysPassAccountPassword to retrieve the actual password for a given
+    account.
 
+    There are additional Find-* cmdlets to help refine searches using the
+    Find-SysPassAccount cmdlet.
