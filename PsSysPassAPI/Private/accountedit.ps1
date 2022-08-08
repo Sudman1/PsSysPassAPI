@@ -88,6 +88,7 @@ function accountedit {
 
         if ($PSCmdlet.ParameterSetName -eq "ImplicitAuth") {
             $PSBoundParameters["authToken"] = $global:__SysPassGlobal.Token.UserName
+            $PSBoundParameters["tokenPass"] = $global:__SysPassGlobal.Token.GetNetworkCredential().Password
         }
 
         $payload = New-JsonRpcPayload -method "account/edit" -params $PSBoundParameters
@@ -101,7 +102,12 @@ function accountedit {
         if ($response.result.resultCode -eq 0) {
             $response.result.result
         } else {
-            $response.error
+            if ($response.error.code -eq -32603) {
+                Write-Error "Could not perform search. Check API Authorizations for Account Search."
+            }
+            else {
+                Write-Error "$($response.error.message): $($response.error.code)"
+            }
         }
     }
 

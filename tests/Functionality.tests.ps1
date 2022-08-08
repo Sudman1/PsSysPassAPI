@@ -13,10 +13,10 @@ Import-Module -Name (Join-Path -Path $outputModVerDir -ChildPath "$($env:BHProje
 
 Describe "Functionality Tests" {
     It "Stores connection information." {
-        Connect-SysPass -URI "http://10.187.110.104/syspass" -Token ([pscredential]::new("9cb6ce43a4bafcbd7c80bd2ae88ba7b2eaa745f4ee34c9adbdc3a0edf1015724", (ConvertTo-SecureString -Force -AsPlainText "123456")))
-        $global:__SysPassGlobal.uri | Should -Be "http://10.187.110.104/syspass"
-        $global:__SysPassGlobal.token.username | Should -Be "9cb6ce43a4bafcbd7c80bd2ae88ba7b2eaa745f4ee34c9adbdc3a0edf1015724"
-        $global:__SysPassGlobal.token.GetNetworkCredential().Password | Should -Be "123456"
+        Connect-SysPass -URI "https://syspass.eastus2.cloudapp.azure.com/" -Token ([pscredential]::new("e20efab40cb769d7069ff9f4a1cbc383d19591369bf6f84dc1e8d466c532f825", (ConvertTo-SecureString -Force -AsPlainText "1234")))
+        $global:__SysPassGlobal.uri | Should -Be "https://syspass.eastus2.cloudapp.azure.com/"
+        $global:__SysPassGlobal.token.username | Should -Be "e20efab40cb769d7069ff9f4a1cbc383d19591369bf6f84dc1e8d466c532f825"
+        $global:__SysPassGlobal.token.GetNetworkCredential().Password | Should -Be "1234"
     }
 
     It "Finding test account details succeeds" {
@@ -24,6 +24,11 @@ Describe "Functionality Tests" {
         $account.name | Should -Be "Test"
         $account.login | Should -Be "Test"
         $account.categoryName | Should -Be "Test"
+    }
+
+    It "Finding test account fails when a user does not have API Authorization" {
+        $badToken = [pscredential]::new("c33d74e892eefff1a1558f7b49b92e20b20c07b2553aad26c14d8471c78b3087", (ConvertTo-SecureString -Force -AsPlainText "1234"))
+        { Find-SysPassAccount -AuthToken $badToken -Regex '^test$' -Category Test } | Should -Throw
     }
 
     It "Finding test category information succeeds" {
@@ -49,7 +54,7 @@ Describe "Functionality Tests" {
 
 
     It "Pulling test account password succeeds" {
-        $pass = Get-SysPassAccountPassword -Regex '^test$'
-        $pass.name | Should -Be "123456789"
+        $pass = Find-SysPassAccount -Regex '^test$' | Get-SysPassAccountPassword
+        $pass | Should -Be "123456789"
     }
 }

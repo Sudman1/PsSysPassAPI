@@ -33,6 +33,9 @@ if ($Bootstrap.IsPresent) {
     }
 }
 
+remove-module pester -Force -ErrorAction SilentlyContinue
+import-module pester -RequiredVersion 4.9.0
+
 # Ensure Artifacts folder exists
 mkdir "$(Resolve-Path .)\output\Artifacts" -Force -ErrorAction SilentlyContinue | Out-Null
 

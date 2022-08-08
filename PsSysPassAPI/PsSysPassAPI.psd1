@@ -12,7 +12,7 @@
 RootModule = 'PsSysPassAPI.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.0'
+ModuleVersion = '0.1.1'
 
 # Supported PSEditions
 CompatiblePSEditions = @(
@@ -39,7 +39,7 @@ Copyright = '(c) 2022 James Sudbury. All rights reserved.'
 Description = 'Powershell wrapper for the sysPass ReST API'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '3.0'
+PowerShellVersion = '5.1'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''

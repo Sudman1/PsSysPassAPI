@@ -5,14 +5,16 @@ properties {
     $PSBPreference.Build.CompileModule = $false
     $PSBPreference.Test.OutputFile = "$(Resolve-Path .)\output\Artifacts\TestResults.xml"
     $PSBPreference.Test.ScriptAnalysis.Enabled = $false
-    $PSBPreference.Test.CodeCoverage.Enabled = $true
+    $PSBPreference.Test.CodeCoverage.OutputFormat = "JaCoCo"
+    $PSBPreference.Test.CodeCoverage.OutputFile = "$(Resolve-Path .)\output\Artifacts\codeCoverage.xml"
+    $PSBPreference.Test.CodeCoverage.Enabled = $false
     $PSBPreference.Test.CodeCoverage.Threshold = 0
     $PSBPreference.Test.CodeCoverage.Files = "..\Output\*\*\P*\*.ps1"
 }
 
 task default -depends Test
 
-task Test -FromModule PowerShellBuild -Version '0.4.0'
+task Test -FromModule PowerShellBuild -Version '0.5.0'
 
 task Release {
     Unregister-PSRepository -Name Release -ErrorAction Ignore
